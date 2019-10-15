@@ -33,28 +33,24 @@
 
 import sys
 import os
-import signal
 import json
-from threading import Thread
 
 
-def load(location, auto_dump, sig=True):
+def load(location, auto_dump):
     '''Return a pickledb object. location is the path to the json file.'''
-    return PickleDB(location, auto_dump, sig)
+    return PickleDB(location, auto_dump)
 
 
 class PickleDB(object):
 
     key_string_error = TypeError('Key/name must be a string!')
 
-    def __init__(self, location, auto_dump, sig):
+    def __init__(self, location, auto_dump):
         '''Creates a database object and loads the data from the location path.
         If the file does not exist it will be created on the first update.
         '''
         self.load(location, auto_dump)
         self.dthread = None
-        if sig:
-            self.set_sigterm_handler()
 
     def __getitem__(self, item):
         '''Syntax sugar for get()'''
@@ -67,14 +63,6 @@ class PickleDB(object):
     def __delitem__(self, key):
         '''Sytax sugar for rem()'''
         return self.rem(key)
-
-    def set_sigterm_handler(self):
-        '''Assigns sigterm_handler for graceful shutdown during dump()'''
-        def sigterm_handler():
-            if self.dthread is not None:
-                self.dthread.join()
-            sys.exit(0)
-        signal.signal(signal.SIGTERM, sigterm_handler)
 
     def load(self, location, auto_dump):
         '''Loads, reloads or changes the path to the db file'''
@@ -90,11 +78,6 @@ class PickleDB(object):
     def dump(self):
         '''Force dump memory db to file'''
         json.dump(self.db, open(self.loco, 'wt'))
-        self.dthread = Thread(
-            target=json.dump,
-            args=(self.db, open(self.loco, 'wt')))
-        self.dthread.start()
-        self.dthread.join()
         return True
 
     def _loaddb(self):
