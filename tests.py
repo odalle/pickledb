@@ -1,5 +1,5 @@
 from __future__ import print_function
-import pickledb
+import pickledbod as pickledb
 
 # a work in progress
 

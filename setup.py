@@ -52,12 +52,14 @@ Latest Release Notes (version: 0.9)
 * The get(key) function now returns *False* instead of None if there is no key (0.8)
 * Switched to Python's built in json module from simplejson (0.8.1)
 
+* OD: Removed signal and threads to avoid conflict when used in uvicorn based app.
+
 """
 
 from distutils.core import setup
 
-setup(name="pickleDB",
-    version="0.9.3",
+setup(name="pickleDBod",
+    version="0.9.4",
     description="A lightweight and simple database using json.",
     long_description=__doc__,
     author="Harrison Erd",
@@ -69,5 +71,5 @@ setup(name="pickleDB",
         "License :: OSI Approved :: BSD License",
         "Intended Audience :: Developers",
         "Topic :: Database" ],
-    py_modules=['pickledb'],)
+    py_modules=['pickledbod'],)
 

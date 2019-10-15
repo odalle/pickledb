@@ -8,7 +8,7 @@ And it's BSD licensed!
 
 ## pickleDB is Fun
 ```python
->>> import pickledb
+>>> import pickledbod as pickledb
 
 >>> db = pickledb.load('test.db', False)
 
@@ -23,7 +23,7 @@ True
 
 ## Easy to Install
 ```python
-$ pip install pickledb
+$ pip install pickledbod
 ```
 
 ## Links
@@ -44,3 +44,6 @@ $ pip install pickledb
 * The get(key) function now returns *False* instead of None if there is no key (0.8)
 * Switched to Python's built in json module from simplejson (0.8.1)
 
+# CREDITS
+
+This version is a slightly modified version of [Harrison Erd's original PickleDB](https://github.com/patx/pickledb/blob/master/setup.py)
